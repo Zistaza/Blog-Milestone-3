@@ -33,12 +33,12 @@ export default function Header() {
         <div className="flex-1 flex items-center text-black space-x-6">
           {/* Image before date and time */}
           <Image
-            src="/images/logoDark.png"
-            alt="Logo"
-            layout="intrinsic"
-            width={80} 
-            height={80} 
-          />
+  src="/images/logoDark.png"
+  alt="Logo Dark"
+  width={150} // Replace with the original or desired width
+  height={75} // Adjust proportionally to maintain aspect ratio
+  priority // Optional
+/>
           <span>{currentDateTime}</span>
         </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardTitle } from "../components/ui/card";
+import Image from 'next/image';
 
 
 interface BlogCardProps {
@@ -13,9 +14,11 @@ export default function BlogCard({ post, isDarkBackground }: BlogCardProps) {
     <Card
       className={`p-4 ${isDarkBackground ? 'bg-gray-400 text-white' : 'bg-blue-100 text-slate-800'} mt-8 border border-black rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300`}
     >
-      <img
+      <Image
         src={post.imageUrl}
         alt={post.title}
+        width={400}
+        height={300}
         className="w-full h-48 object-cover rounded-t-lg"
       />
 
@@ -36,10 +39,12 @@ export default function BlogCard({ post, isDarkBackground }: BlogCardProps) {
   <span className="flex items-center">
     Blog by: {post.author}
     {post.authorimg ? (
-    <img
+    <Image
       className="w-10 h-10 rounded-full ml-2 object-cover border-2 border-slate-500"
       src={post.authorimg}
         alt={post.title}
+        width={400}
+        height={300}
     />
   ) : null}
   </span>

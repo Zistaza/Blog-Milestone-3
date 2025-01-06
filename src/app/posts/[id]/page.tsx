@@ -4,6 +4,8 @@ import CommentSection from '@/components/CommentsSection';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import Image from 'next/image';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 
 const posts = [
@@ -118,9 +120,23 @@ const posts = [
 ];
 
 
+
 export async function generateStaticParams() {
-  // Example: Generate static params for dynamic routes
-  return [{ id: '1' }, { id: '2' }, { id: '3'}, { id: '4'}, {id: '5'}, {id: '6'}];
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: '4' },
+    { id: '5' },
+    { id: '6' },
+  ];
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  return {
+    title: `Post ${params.id}`,
+    description: `Details of Post ${params.id}`,
+  };
 }
 
 export default function Post({ params }: { params: { id: string } }) {
@@ -128,10 +144,9 @@ export default function Post({ params }: { params: { id: string } }) {
   const post = posts.find((p) => p.id === id);
 
   if (!post) {
-    return (
-      <h2 className="text-2xl font-bold text-center mt-10">Post Not Found</h2>
-    );
+    notFound(); // Use Next.js's built-in notFound function for handling missing posts
   }
+
 
   const renderParagraphs = (description: string) => {
     return description.split("\n").map((para, index) => (
@@ -168,10 +183,13 @@ export default function Post({ params }: { params: { id: string } }) {
       </div>
 
       {post.image && (
-        <img
+        <Image
           src={post.image}
           alt={post.title}
-          className="w-full h-auto rounded-md mt-4" />
+          className="w-full h-auto rounded-md mt-4"
+          width={400}
+          height={300}
+          />
       )}
 
       <div className="mt-6 text-lg text-slate-700">
@@ -181,10 +199,12 @@ export default function Post({ params }: { params: { id: string } }) {
         {renderParagraphs(post.description)}
       </div>
 
-      <img
+      <Image
         src={post.secondaryImage}
         alt={post.title}
-        className="w-full h-auto rounded-md mt-4" />
+        className="w-full h-auto rounded-md mt-4" 
+        width={400}
+        height={300} />
       <div className="mt-6 text-lg text-slate-700">
         {renderParagraphs(post.secondaryDescription || "")}
       </div>
@@ -192,9 +212,11 @@ export default function Post({ params }: { params: { id: string } }) {
       <div className="mt-6 text-lg text-slate-700">
         
         {renderParagraphs(post.thirdDescription || "")}
-        <img
+        <Image
         src={post.thirdImage}
         alt={post.title}
+        width={400}
+        height={300}
         className="w-full h-auto rounded-md mt-4" />
       </div>
 
@@ -203,9 +225,12 @@ export default function Post({ params }: { params: { id: string } }) {
           {post.thirdtitle}
         </h1>
         {renderParagraphs(post.forthDescription || "")}
-        <img
+        <Image
           src={post.fourthImage}
           alt={post.title}
+          width={400}
+          height={300}
+
           className="w-full h-auto rounded-md mt-4" />
         {renderParagraphs(post.fifthDescription || "")}
       </div>
