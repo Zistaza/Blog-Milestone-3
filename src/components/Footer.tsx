@@ -8,8 +8,14 @@ export default function Footer() {
         <a
           className="flex title-font font-medium items-center md:justify-start justify-center text-black"
         >
-         <Image src="/images/logoDark.png" alt="logo" width={80} height={80}
-         ></Image>
+         <Image
+           src="/images/logoDark.png" // Ensure the file is located in the "public/images" folder
+           alt="My Logo"
+           width={100} // Specify width
+           height={50} // Specify height
+           style={{ maxWidth: '100%', height: 'auto' }} // Inline styles (optional)
+           priority // Optional: preload this image for better performance
+         />
           
         </a>
         <p className="text-sm text-purple-700 font-bold sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">

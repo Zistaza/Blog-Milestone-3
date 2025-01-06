@@ -33,11 +33,12 @@ export default function Header() {
         <div className="flex-1 flex items-center text-black space-x-6">
           {/* Image before date and time */}
           <Image
-  src="/images/logoDark.png"
-  alt="Logo Dark"
-  width={150} // Replace with the original or desired width
-  height={75} // Adjust proportionally to maintain aspect ratio
-  priority // Optional
+  src="/images/logoDark.png" // Ensure the file is located in the "public/images" folder
+  alt="My Logo"
+  width={100} // Specify width
+  height={50} // Specify height
+  style={{ maxWidth: '100%', height: 'auto' }} // Inline styles (optional)
+  priority // Optional: preload this image for better performance
 />
           <span>{currentDateTime}</span>
         </div>

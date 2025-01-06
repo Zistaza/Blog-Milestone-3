@@ -156,3 +156,9 @@ body {
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out forwards;
 }
+
+/* styles.css */
+.my-logo {
+  width: 100px;
+  height: auto;
+}

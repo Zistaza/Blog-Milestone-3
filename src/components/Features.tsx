@@ -56,7 +56,7 @@ const Features = () => {
               key={index}
               src={img}
               alt={`Banner ${index + 1}`}
-              width={400}
+              width={1600}
               height={100}
               priority // Optional
               className="w-full h-auto flex-shrink-0 transition-transform duration-500"

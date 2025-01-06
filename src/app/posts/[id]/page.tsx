@@ -4,11 +4,10 @@ import CommentSection from '@/components/CommentsSection';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import Image from 'next/image';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'; 
 
-
-const posts = [
+async function fetchPosts() {
+return [
   {
     id: "1",
     title: "Mountain Moments",
@@ -118,44 +117,27 @@ const posts = [
   fifthDescription: "Savor the moment, let time gently flow,  In each fleeting instant, there's much to bestow.  Pause and embrace what the present can show,  Life blooms in the now, where true treasures grow.",
 },
 ];
-
-
-
-export async function generateStaticParams() {
-  return [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' },
-    { id: '4' },
-    { id: '5' },
-    { id: '6' },
-  ];
 }
+export default async function Post({ params }: { params: { id: string } }) {
+  const id = params.id
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  return {
-    title: `Post ${params.id}`,
-    description: `Details of Post ${params.id}`,
-  };
-}
-
-export default function Post({ params }: { params: { id: string } }) {
-  const { id } = params;
-  const post = posts.find((p) => p.id === id);
-
-  if (!post) {
-    notFound(); // Use Next.js's built-in notFound function for handling missing posts
-  }
+  try {
+    const posts = await fetchPosts(); // Replace with your actual data fetching function
+    const post = posts.find((p) => p.id === id);
 
 
-  const renderParagraphs = (description: string) => {
-    return description.split("\n").map((para, index) => (
+    if (!post) {
+      // Use notFound for 404 handling. This is the preferred method for Next 13+
+      notFound(); 
+    }
+
+
+  const renderParagraphs = (description: string) =>
+    description.split('\n').map((para, index) => (
       <p key={index} className="mt-4 text-justify">
         {para.trim()}
       </p>
     ));
-  };
-
   return (
     <><Navbar  
     /><><div className="max-w-3xl mt-12 mx-auto p-5 bg-purple-100 shadow-[0_4px_6px_rgba(0,0,0,0.5)] hover:shadow-[0_6px_10px_rgba(0,0,0,0.7)]  transition-shadow duration-800">
@@ -244,4 +226,12 @@ export default function Post({ params }: { params: { id: string } }) {
     </div>
       <Footer /></></>
   );
+} catch (error) {
+  console.error("Error fetching post:", error);
+  // Handle the error appropriately, e.g., display an error message
+  return <div>Error loading post.</div>;
 }
+}
+
+
+
